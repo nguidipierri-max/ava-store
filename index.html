@@ -6,6 +6,7 @@
     <title>AVA – Ropa Fitness & Yoga</title>
     <link rel="stylesheet" href="css/styles.css" />
   </head>
+  
   <body>
 
     <!-- HEADER: navegación principal -->
@@ -14,6 +15,7 @@
         <a href="index.html" aria-label="Inicio AVA">
           <span class="logo">AVA</span>
         </a>
+        <span id="carrito-contador" style="display:none; background:#b8a99a; color:white; border-radius:50%; padding:2px 8px; font-size:0.8rem; margin-left:0.5rem;"></span>
         <ul role="list">
           <li><a href="#catalogo">Catálogo</a></li>
           <li><a href="#nosotras">Nosotras</a></li>
@@ -79,4 +81,60 @@
           <div class="campo">
             <label for="nombre">Nombre</label>
             <input 
-              type="text"
+              type="text" 
+              id="nombre" 
+              name="nombre" 
+              placeholder="Tu nombre"
+              required
+              aria-required="true"
+            />
+          </div>
+          <div class="campo">
+            <label for="email">Email</label>
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              placeholder="tu@email.com"
+              required
+              aria-required="true"
+            />
+          </div>
+          <div class="campo">
+            <label for="mensaje">Mensaje</label>
+            <textarea 
+              id="mensaje" 
+              name="mensaje" 
+              rows="4"
+              placeholder="¿En qué te podemos ayudar?"
+              required
+              aria-required="true"
+            ></textarea>
+          </div>
+          <button type="submit">Enviar mensaje</button>
+        </form>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer role="contentinfo">
+      <p>&copy; 2026 AVA. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+
+    <div id="notificacion" style="
+      position:fixed; bottom:2rem; right:2rem;
+      background:#2d2d2d; color:white;
+      padding:1rem 1.5rem; border-radius:8px;
+      font-size:0.9rem; opacity:0;
+      transition: opacity 0.3s;
+      pointer-events:none;
+    "></div>
+
+    <style>
+      #notificacion.visible { opacity: 1; }
+    </style>
+
+  </body>
+</html>
