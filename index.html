@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AVA – Ropa Fitness & Yoga</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+
+    <!-- HEADER: navegación principal -->
+    <header role="banner">
+      <nav aria-label="Navegación principal">
+        <a href="index.html" aria-label="Inicio AVA">
+          <span class="logo">AVA</span>
+        </a>
+        <ul role="list">
+          <li><a href="#catalogo">Catálogo</a></li>
+          <li><a href="#nosotras">Nosotras</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- HERO: sección principal de bienvenida -->
+    <main>
+      <section class="hero" aria-label="Bienvenida">
+        <h1>Movete con intención.</h1>
+        <p>Ropa diseñada para el yoga y el fitness que te acompaña en cada postura.</p>
+        <a href="#catalogo" class="btn-primary">Ver colección</a>
+      </section>
+
+      <!-- CATÁLOGO de productos -->
+      <section id="catalogo" aria-labelledby="titulo-catalogo">
+        <h2 id="titulo-catalogo">Colección</h2>
+        <div class="productos" role="list">
+
+          <article class="producto" role="listitem">
+            <img src="images/producto1.jpg" alt="Calza negra de alto impacto AVA" />
+            <h3>Calza High Impact</h3>
+            <p class="precio">$12.999</p>
+            <button type="button" aria-label="Agregar Calza High Impact al carrito">
+              Agregar al carrito
+            </button>
+          </article>
+
+          <article class="producto" role="listitem">
+            <img src="images/producto2.jpg" alt="Top deportivo lila de yoga AVA" />
+            <h3>Top Yoga Lila</h3>
+            <p class="precio">$8.999</p>
+            <button type="button" aria-label="Agregar Top Yoga Lila al carrito">
+              Agregar al carrito
+            </button>
+          </article>
+
+          <article class="producto" role="listitem">
+            <img src="images/producto3.jpg" alt="Conjunto completo fitness verde AVA" />
+            <h3>Conjunto Fitness Verde</h3>
+            <p class="precio">$19.999</p>
+            <button type="button" aria-label="Agregar Conjunto Fitness Verde al carrito">
+              Agregar al carrito
+            </button>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- NOSOTRAS -->
+      <section id="nosotras" aria-labelledby="titulo-nosotras">
+        <h2 id="titulo-nosotras">Nosotras</h2>
+        <p>AVA nació de la necesidad de tener ropa que acompañe el movimiento sin resignar estilo. 
+        Diseñamos cada prenda pensando en mujeres activas que buscan comodidad y confianza.</p>
+      </section>
+
+      <!-- CONTACTO -->
+      <section id="contacto" aria-labelledby="titulo-contacto">
+        <h2 id="titulo-contacto">Contacto</h2>
+        <form aria-label="Formulario de contacto" novalidate>
+          <div class="campo">
+            <label for="nombre">Nombre</label>
+            <input 
+              type="text"
