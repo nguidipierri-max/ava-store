@@ -1,9 +1,9 @@
 import Link from "next/link";
 
 const productos = [
-  { id: 1, nombre: "Conjunto Hele", precio: 12999, slug: "conjunto-hele" },
-  { id: 2, nombre: "Conjunto Angiu", precio: 8999, slug: "conjunto-angiu" },
-  { id: 3, nombre: "Conjunto Strip", precio: 19999, slug: "conjunto-strip" },
+  { id: 1, nombre: "Conjunto Hele", precio: 80000, slug: "conjunto-hele" },
+  { id: 2, nombre: "Conjunto Angiu", precio: 65000, slug: "conjunto-angiu" },
+  { id: 3, nombre: "Conjunto Strip", precio: 92500, slug: "conjunto-strip" },
 ];
 
 export const metadata = {
