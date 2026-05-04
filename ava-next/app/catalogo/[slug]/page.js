@@ -1,7 +1,7 @@
 const productos = [
-    { id: 1, nombre: "Calza High Impact", precio: 12999, slug: "calza-high-impact", descripcion: "Calza de alto impacto ideal para entrenamientos intensos. Tela compresiva, transpirable y de secado rápido." },
-    { id: 2, nombre: "Top Yoga Lila", precio: 8999, slug: "top-yoga-lila", descripcion: "Top suave y cómodo pensado para yoga y pilates. Con soporte interno y breteles regulables." },
-    { id: 3, nombre: "Conjunto Fitness Verde", precio: 19999, slug: "conjunto-fitness-verde", descripcion: "Conjunto completo para entrenar con estilo. Incluye calza y top a juego, diseño exclusivo AVA." },
+    { id: 1, nombre: "Conjunto Hele", precio: 12999, slug: "conjunto-hele", descripcion: "Conjunto deportivo ideal para entrenamientos intensos. Tela compresiva, transpirable y de secado rápido." },
+    { id: 2, nombre: "Conjunto Angiu", precio: 8999, slug: "conjunto-angiu", descripcion: "Conjunto suave y cómodo pensado para yoga y pilates. Con soporte interno y diseño exclusivo AVA." },
+    { id: 3, nombre: "Conjunto Strip", precio: 19999, slug: "conjunto-strip", descripcion: "Conjunto completo para entrenar con estilo. Incluye calza y top a juego, diseño exclusivo AVA." },
   ];
   
   export function generateStaticParams() {
@@ -15,20 +15,17 @@ const productos = [
   
     return (
       <main style={{ padding: "4rem 2rem", maxWidth: "800px", margin: "0 auto" }}>
-        <div style={{
-          width: "100%",
-          height: "400px",
-          backgroundColor: "#ede5dc",
-          borderRadius: "8px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          color: "#b8a99a",
-          fontSize: "1.2rem",
-          marginBottom: "2rem"
-        }}>
-          {producto.nombre}
-        </div>
+        <img
+          src={`/images/producto${producto.id}.jpg`}
+          alt={producto.nombre}
+          style={{
+            width: "100%",
+            height: "400px",
+            objectFit: "cover",
+            borderRadius: "8px",
+            marginBottom: "2rem"
+          }}
+        />
         <h1 style={{
           fontFamily: "Georgia, serif",
           fontWeight: "normal",

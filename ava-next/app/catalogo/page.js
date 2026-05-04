@@ -1,9 +1,9 @@
 import Link from "next/link";
 
 const productos = [
-  { id: 1, nombre: "Calza High Impact", precio: 12999, slug: "calza-high-impact" },
-  { id: 2, nombre: "Top Yoga Lila", precio: 8999, slug: "top-yoga-lila" },
-  { id: 3, nombre: "Conjunto Fitness Verde", precio: 19999, slug: "conjunto-fitness-verde" },
+  { id: 1, nombre: "Conjunto Hele", precio: 12999, slug: "conjunto-hele" },
+  { id: 2, nombre: "Conjunto Angiu", precio: 8999, slug: "conjunto-angiu" },
+  { id: 3, nombre: "Conjunto Strip", precio: 19999, slug: "conjunto-strip" },
 ];
 
 export const metadata = {
@@ -36,17 +36,11 @@ export default function Catalogo() {
               overflow: "hidden",
               boxShadow: "0 2px 12px rgba(0,0,0,0.06)"
             }}>
-              <div style={{
-                width: "100%",
-                height: "250px",
-                backgroundColor: "#ede5dc",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "#b8a99a"
-              }}>
-                {producto.nombre}
-              </div>
+              <img
+                src={`/images/producto${producto.id}.jpg`}
+                alt={producto.nombre}
+                style={{ width: "100%", height: "250px", objectFit: "cover" }}
+              />
               <div style={{ padding: "1rem" }}>
                 <h2 style={{
                   fontFamily: "Georgia, serif",
