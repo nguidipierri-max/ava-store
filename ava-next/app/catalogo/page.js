@@ -1,4 +1,5 @@
 import Link from "next/link";
+import BotonCarrito from "../components/BotonCarrito";
 
 const productos = [
   { id: 1, nombre: "Conjunto Hele", precio: 80000, slug: "conjunto-hele" },
@@ -29,13 +30,13 @@ export default function Catalogo() {
         gap: "2rem"
       }}>
         {productos.map((producto) => (
-          <Link key={producto.id} href={`/catalogo/${producto.slug}`} style={{ textDecoration: "none" }}>
-            <article style={{
-              backgroundColor: "#ffffff",
-              borderRadius: "8px",
-              overflow: "hidden",
-              boxShadow: "0 2px 12px rgba(0,0,0,0.06)"
-            }}>
+          <article key={producto.id} style={{
+            backgroundColor: "#ffffff",
+            borderRadius: "8px",
+            overflow: "hidden",
+            boxShadow: "0 2px 12px rgba(0,0,0,0.06)"
+          }}>
+            <Link href={`/catalogo/${producto.slug}`} style={{ textDecoration: "none" }}>
               <img
                 src={`/images/producto${producto.id}.jpg`}
                 alt={producto.nombre}
@@ -51,12 +52,13 @@ export default function Catalogo() {
                 }}>
                   {producto.nombre}
                 </h2>
-                <p style={{ color: "#7a7a7a" }}>
+                <p style={{ color: "#7a7a7a", marginBottom: "0.75rem" }}>
                   ${producto.precio.toLocaleString("es-AR")}
                 </p>
               </div>
-            </article>
-          </Link>
+            </Link>
+            <BotonCarrito producto={producto} />
+          </article>
         ))}
       </div>
       <Link href="/" style={{
