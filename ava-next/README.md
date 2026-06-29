@@ -4,6 +4,16 @@ Proyecto integrador — Programación Web (71.38), ITBA
 Repositorio: `github.com/nguidipierri-max/ava-store` (carpeta `ava-next`)
 Deploy: `ava-store-seven.vercel.app`
 
+## Cómo correr el proyecto en local
+
+```bash
+cd ava-next
+npm install
+npm run dev
+```
+
+Necesita un archivo `.env.local` con las variables: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SECRET_KEY`, `MERCADOPAGO_ACCESS_TOKEN`, `NEXT_PUBLIC_MERCADOPAGO_PUBLIC_KEY`, `MERCADOPAGO_WEBHOOK_SECRET`, `NEXT_PUBLIC_SITE_URL`.
+
 ## 1. Modelo de negocio
 
 AVA es una tienda online de indumentaria deportiva (conjuntos de yoga y entrenamiento). El modelo es e-commerce directo al consumidor (D2C):
