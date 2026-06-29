@@ -1,11 +1,6 @@
 import Link from "next/link";
 import BotonCarrito from "../components/BotonCarrito";
-
-const productos = [
-  { id: 1, nombre: "Conjunto Hele", precio: 80000, slug: "conjunto-hele" },
-  { id: 2, nombre: "Conjunto Angiu", precio: 65000, slug: "conjunto-angiu" },
-  { id: 3, nombre: "Conjunto Strip", precio: 92500, slug: "conjunto-strip" },
-];
+import { getProductos } from "../lib/data";
 
 export const metadata = {
   title: "Catálogo – AVA",
@@ -13,6 +8,7 @@ export const metadata = {
 };
 
 export default function Catalogo() {
+  const productos = getProductos();
   return (
     <main style={{ padding: "4rem 2rem", maxWidth: "1200px", margin: "0 auto" }}>
       <h1 style={{

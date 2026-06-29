@@ -37,6 +37,47 @@ export default function Carrito() {
     localStorage.removeItem("ava-carrito-next");
   };
 
+  const finalizarCompra = async () => {
+    try {
+      const items = carrito.map(p => ({
+        product_id: p.id,
+        cantidad: p.cantidad,
+        precio_unitario: p.precio,
+      }));
+
+      const resOrden = await fetch("/api/ordenes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ items }),
+      });
+
+      if (!resOrden.ok) {
+        alert("No se pudo crear la orden. Probá de nuevo.");
+        return;
+      }
+
+      const orden = await resOrden.json();
+
+      const resPago = await fetch("/api/pago", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ orden_id: orden.id }),
+      });
+
+      if (!resPago.ok) {
+        alert("No se pudo generar el pago. Probá de nuevo.");
+        return;
+      }
+
+      const { init_point } = await resPago.json();
+      window.location.href = init_point;
+
+    } catch (error) {
+      console.error("Error en checkout:", error);
+      alert("Ocurrió un error al procesar la compra.");
+    }
+  };
+
   return (
     <>
       {/* Botón carrito en el nav */}
@@ -144,7 +185,7 @@ export default function Carrito() {
                   cursor: "pointer", marginBottom: "0.75rem",
                   fontSize: "0.85rem", letterSpacing: "0.1em", textTransform: "uppercase"
                 }}>Vaciar carrito</button>
-                <button style={{
+                <button onClick={finalizarCompra} style={{
                   width: "100%", padding: "0.85rem",
                   backgroundColor: "#2d2d2d", color: "white",
                   border: "none", borderRadius: "8px",
