@@ -45,6 +45,7 @@ export default function RootLayout({ children }) {
             }}>
               <li><Link href="/" style={{ textDecoration: "none", color: "#3a3a3a", fontSize: "0.9rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>Inicio</Link></li>
               <li><Link href="/catalogo" style={{ textDecoration: "none", color: "#3a3a3a", fontSize: "0.9rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>Colección</Link></li>
+              <li><Link href="/mis-ordenes" style={{ textDecoration: "none", color: "#3a3a3a", fontSize: "0.9rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>Mis Órdenes</Link></li>
               <li><Link href="#contacto" style={{ textDecoration: "none", color: "#3a3a3a", fontSize: "0.9rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>Contacto</Link></li>
               <li><Carrito /></li>
             </ul>

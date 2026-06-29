@@ -2,10 +2,10 @@ import { NextResponse } from "next/server";
 import { supabase } from "../../lib/supabase";
 
 // POST /api/ordenes — crea una orden nueva con sus items.
-// Body esperado: { items: [{ product_id, cantidad, precio_unitario }] }
+// Body esperado: { items: [{ product_id, cantidad, precio_unitario }], user_id }
 export async function POST(request) {
   const body = await request.json();
-  const { items } = body;
+  const { items, user_id } = body;
 
   if (!items || items.length === 0) {
     return NextResponse.json(
@@ -51,10 +51,10 @@ export async function POST(request) {
     0
   );
 
-  // 1. Creamos la orden
+  // 1. Creamos la orden (con user_id si se mandó)
   const { data: orden, error: errorOrden } = await supabase
     .from("orders")
-    .insert({ total, estado: "pendiente" })
+    .insert({ total, estado: "pendiente", user_id: user_id || null })
     .select()
     .single();
 

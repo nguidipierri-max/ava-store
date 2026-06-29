@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { supabase } from "../lib/supabase";
 
 export default function Carrito() {
   const [carrito, setCarrito] = useState([]);
@@ -39,6 +40,9 @@ export default function Carrito() {
 
   const finalizarCompra = async () => {
     try {
+      const { data: sesion } = await supabase.auth.getSession();
+      const userId = sesion?.session?.user?.id || null;
+
       const items = carrito.map(p => ({
         product_id: p.id,
         cantidad: p.cantidad,
@@ -48,11 +52,12 @@ export default function Carrito() {
       const resOrden = await fetch("/api/ordenes", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ items }),
+        body: JSON.stringify({ items, user_id: userId }),
       });
 
       if (!resOrden.ok) {
-        alert("No se pudo crear la orden. Probá de nuevo.");
+        const data = await resOrden.json();
+        alert(data.error || "No se pudo crear la orden. Probá de nuevo.");
         return;
       }
 
