@@ -35,6 +35,8 @@ export async function POST(request) {
   // 3. Creamos la preferencia de pago
   const preference = new Preference(client);
 
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+
   try {
     const resultado = await preference.create({
       body: {
@@ -44,9 +46,9 @@ export async function POST(request) {
           email: "test_user_123456@testuser.com",
         },
         back_urls: {
-          success: "http://localhost:3000/pago/exito",
-          failure: "http://localhost:3000/pago/error",
-          pending: "http://localhost:3000/pago/pendiente",
+          success: `${baseUrl}/pago/exito`,
+          failure: `${baseUrl}/pago/error`,
+          pending: `${baseUrl}/pago/pendiente`,
         },
       },
     });
