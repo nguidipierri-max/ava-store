@@ -14,6 +14,38 @@ export async function POST(request) {
     );
   }
 
+  // 0. Verificamos que haya stock suficiente para cada producto antes de crear la orden
+  const idsProductos = items.map((item) => item.product_id);
+  const { data: productosDB, error: errorProductos } = await supabase
+    .from("products")
+    .select("id, nombre, stock")
+    .in("id", idsProductos);
+
+  if (errorProductos) {
+    return NextResponse.json(
+      { error: "No se pudo verificar el stock" },
+      { status: 500 }
+    );
+  }
+
+  for (const item of items) {
+    const producto = productosDB.find((p) => p.id === item.product_id);
+    if (!producto) {
+      return NextResponse.json(
+        { error: `Producto ${item.product_id} no encontrado` },
+        { status: 404 }
+      );
+    }
+    if (producto.stock < item.cantidad) {
+      return NextResponse.json(
+        {
+          error: `Stock insuficiente para "${producto.nombre}". Disponible: ${producto.stock}, solicitado: ${item.cantidad}`,
+        },
+        { status: 409 }
+      );
+    }
+  }
+
   const total = items.reduce(
     (acc, item) => acc + item.cantidad * item.precio_unitario,
     0
