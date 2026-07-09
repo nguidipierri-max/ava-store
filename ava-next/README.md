@@ -35,6 +35,7 @@ AVA es una tienda online de indumentaria deportiva (conjuntos de yoga y entrenam
    - Extrae `external_reference` (id de la orden) y `status` del pago.
    - Traduce el estado de MP a un estado propio (`pagado` / `fallido` / `cancelado` / `pendiente`).
    - Actualiza la orden en Supabase usando un cliente con permisos de servicio (ver sección 4, "Decisiones técnicas").
+7. **Contacto** (`POST /api/contacto`): formulario de contacto en la landing, implementado como componente cliente (`FormularioContacto.js`) con validación y manejo de estado de carga/error. Guarda el mensaje en la tabla `mensajes_contacto` de Supabase.
 
 **Verificado en vivo en esta sesión:** flujo completo desde la creación del carrito hasta la actualización del estado de la orden a `pagado` en la base de datos, disparado por una notificación real de Mercado Pago (no simulada). Orden de prueba: id `17`, operación de Mercado Pago `165512435313`.
 
@@ -60,6 +61,7 @@ AVA es una tienda online de indumentaria deportiva (conjuntos de yoga y entrenam
 - **Verificación de pagos contra la fuente de verdad**: el webhook no usa los datos que vienen en el body de la notificación para decidir el estado final; siempre vuelve a consultar el pago contra la API de Mercado Pago con el `access token` del servidor. Esto evita que una notificación falsificada pueda marcar una orden como pagada.
 - **Cliente de Supabase con permisos elevados en el backend**: la tabla `orders` tiene Row Level Security (RLS) activado. El cliente Supabase usado en el resto de la app (`anon key`) respeta esas políticas, lo cual es correcto para operaciones iniciadas por el usuario. Sin embargo, el webhook corre sin sesión de usuario (es una llamada servidor-a-servidor desde Mercado Pago), por lo que necesita un cliente separado (`supabaseAdmin`, en `app/lib/supabase-admin.js`) inicializado con la *secret key* del proyecto, que se salta RLS. Este cliente **se usa exclusivamente en endpoints de servidor** y nunca se expone al navegador.
 - **Conversión explícita de tipos**: `external_reference` llega como string desde la API de Mercado Pago; la columna `id` en Supabase es numérica (`int8`). Se castea con `Number()` antes de la consulta para evitar fallos silenciosos de comparación de tipos.
+- **Diseño responsivo sin framework de CSS**: los estilos se manejan con `style` inline en JSX (sin Tailwind ni CSS-in-JS), salvo un puñado de reglas con media queries en `globals.css` para los elementos que necesitan comportamiento distinto según el ancho de pantalla (navegación, grilla de productos, panel del carrito). El sitio no adapta sus colores al modo oscuro del sistema operativo (`prefers-color-scheme`) de forma deliberada: al usar una paleta clara fija en todas las secciones, dejar que el navegador reinterprete los colores automáticamente generaría problemas de contraste.
 
 ## 5. Roles y panel de administración
 
@@ -69,6 +71,16 @@ La tabla `profiles` tiene una columna `rol` (`cliente` por defecto, asignada aut
 - Crear, editar y borrar productos del catálogo (`POST` / `PUT` / `DELETE` en `/api/productos`), incluyendo el campo `stock`.
 
 El control de acceso se hace en dos capas: la página verifica el rol del usuario logueado contra Supabase antes de renderizar el panel (y redirige si no es admin), y los endpoints de escritura de productos usan el cliente `supabaseAdmin` para no depender de las políticas de RLS pensadas para clientes.
+
+**Cuenta admin de prueba:** `reinanicco@gmail.com` / contraseña `nikiprobando` — por diseño, el rol `admin` no se puede auto-asignar desde ningún formulario de la app (todo usuario nuevo nace con `rol = 'cliente'` vía el trigger `handle_new_user`). La promoción a admin se hace manualmente desde el SQL Editor de Supabase:
+
+```sql
+update profiles
+set rol = 'admin'
+where id = (select id from auth.users where email = 'reinanicco@gmail.com');
+```
+
+Esta decisión es intencional: evita que cualquier usuario registrado pueda otorgarse permisos de administrador a sí mismo desde el cliente.
 
 ## 6. Infraestructura de despliegue
 
