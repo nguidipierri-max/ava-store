@@ -39,9 +39,6 @@ export async function POST(request) {
       body: {
         items,
         external_reference: String(orden.id),
-        payer: {
-          email: "test_user_123456@testuser.com",
-        },
         back_urls: {
           success: `${baseUrl}/pago/exito`,
           failure: `${baseUrl}/pago/error`,
