@@ -1,5 +1,6 @@
 import { supabase } from "../../lib/supabase";
 import BotonCarrito from "../../components/BotonCarrito";
+import Link from "next/link";
 
 async function obtenerProducto(slug) {
   const { data, error } = await supabase
@@ -46,6 +47,15 @@ export default async function ProductoPage({ params }) {
         {producto.descripcion}
       </p>
       <BotonCarrito producto={producto} />
+      <Link href="/catalogo" style={{
+        display: "inline-block",
+        marginTop: "2rem",
+        color: "#7a7a7a",
+        textDecoration: "none",
+        fontSize: "0.9rem"
+      }}>
+        ← Volver al catálogo
+      </Link>
     </main>
   );
 }
