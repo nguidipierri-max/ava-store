@@ -47,6 +47,7 @@ export async function POST(request) {
           failure: `${baseUrl}/pago/error`,
           pending: `${baseUrl}/pago/pendiente`,
         },
+        auto_return: "approved",
       },
     });
 
