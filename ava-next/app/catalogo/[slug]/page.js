@@ -1,4 +1,5 @@
 import { supabase } from "../../lib/supabase";
+import BotonCarrito from "../../components/BotonCarrito";
 
 async function obtenerProducto(slug) {
   const { data, error } = await supabase
@@ -44,19 +45,7 @@ export default async function ProductoPage({ params }) {
       <p style={{ color: "#3a3a3a", lineHeight: "1.8", marginBottom: "2rem" }}>
         {producto.descripcion}
       </p>
-      <button style={{
-        padding: "0.9rem 2.5rem",
-        backgroundColor: "#2d2d2d",
-        color: "white",
-        border: "none",
-        borderRadius: "8px",
-        cursor: "pointer",
-        letterSpacing: "0.15em",
-        textTransform: "uppercase",
-        fontSize: "0.85rem"
-      }}>
-        Agregar al carrito
-      </button>
+      <BotonCarrito producto={producto} />
     </main>
   );
 }

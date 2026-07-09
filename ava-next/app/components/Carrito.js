@@ -118,7 +118,7 @@ export default function Carrito() {
 
       {/* Panel del carrito */}
       {abierto && (
-        <div style={{
+        <div className="ava-carrito-panel" style={{
           position: "fixed",
           top: 0, right: 0,
           width: "420px",

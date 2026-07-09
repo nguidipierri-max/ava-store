@@ -1,6 +1,7 @@
 import "./globals.css";
 import Link from "next/link";
 import Carrito from "./components/Carrito";
+import FormularioContacto from "./components/FormularioContacto";
 
 export const metadata = {
   title: "AVA – Ropa Fitness & Yoga",
@@ -20,7 +21,7 @@ export default function RootLayout({ children }) {
           zIndex: 100,
           padding: "1rem 2rem"
         }}>
-          <nav style={{
+          <nav className="ava-nav" style={{
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
@@ -35,7 +36,7 @@ export default function RootLayout({ children }) {
                 color: "#2d2d2d"
               }}>AVA</span>
             </Link>
-            <ul style={{
+            <ul className="ava-nav-links" style={{
               listStyle: "none",
               display: "flex",
               gap: "2rem",
@@ -66,61 +67,7 @@ export default function RootLayout({ children }) {
             color: "#2d2d2d",
             marginBottom: "2rem"
           }}>Contacto</h2>
-          <form style={{
-            maxWidth: "600px",
-            margin: "0 auto",
-            display: "flex",
-            flexDirection: "column",
-            gap: "1rem"
-          }}>
-            <input
-              type="text"
-              placeholder="Tu nombre"
-              style={{
-                padding: "0.9rem 1rem",
-                border: "1px solid #ddd",
-                borderRadius: "8px",
-                fontSize: "1rem",
-                backgroundColor: "#fff"
-              }}
-            />
-            <input
-              type="email"
-              placeholder="Tu email"
-              style={{
-                padding: "0.9rem 1rem",
-                border: "1px solid #ddd",
-                borderRadius: "8px",
-                fontSize: "1rem",
-                backgroundColor: "#fff"
-              }}
-            />
-            <textarea
-              placeholder="¿En qué te podemos ayudar?"
-              rows="4"
-              style={{
-                padding: "0.9rem 1rem",
-                border: "1px solid #ddd",
-                borderRadius: "8px",
-                fontSize: "1rem",
-                backgroundColor: "#fff",
-                resize: "vertical"
-              }}
-            />
-            <button type="submit" style={{
-              padding: "0.9rem",
-              backgroundColor: "#2d2d2d",
-              color: "white",
-              border: "none",
-              borderRadius: "8px",
-              cursor: "pointer",
-              fontSize: "0.9rem",
-              letterSpacing: "0.15em",
-              textTransform: "uppercase"
-            }}>
-              Enviar mensaje
-            </button>
-          </form>
+          <FormularioContacto />
         </section>
 
         <footer style={{

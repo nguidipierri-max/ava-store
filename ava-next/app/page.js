@@ -1,17 +1,26 @@
 import Link from "next/link";
+import { supabase } from "./lib/supabase";
 
-const productos = [
-  { id: 1, nombre: "Conjunto Hele", precio: 80000, slug: "conjunto-hele" },
-  { id: 2, nombre: "Conjunto Angiu", precio: 65000, slug: "conjunto-angiu" },
-  { id: 3, nombre: "Conjunto Strip", precio: 92500, slug: "conjunto-strip" },
-];
+export const dynamic = "force-dynamic";
+
+async function getProductos() {
+  const { data, error } = await supabase
+    .from("products")
+    .select("*")
+    .order("id");
+
+  if (error) return [];
+  return data;
+}
 
 export const metadata = {
   title: "AVA – Ropa Fitness & Yoga",
   description: "Ropa diseñada para el yoga y el fitness que te acompaña en cada postura.",
 };
 
-export default function Home() {
+export default async function Home() {
+  const productos = await getProductos();
+
   return (
     <main>
       {/* HERO */}
@@ -27,7 +36,7 @@ export default function Home() {
       }}>
         <h1 style={{
           fontFamily: "Georgia, serif",
-          fontSize: "4rem",
+          fontSize: "clamp(2.2rem, 6vw, 4rem)",
           color: "#2d2d2d",
           fontWeight: "normal",
           marginBottom: "1rem"
@@ -64,7 +73,7 @@ export default function Home() {
         </h2>
         <div style={{
           display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
+          gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
           gap: "2rem"
         }}>
           {productos.map((producto) => (
