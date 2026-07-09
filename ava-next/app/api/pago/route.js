@@ -6,11 +6,9 @@ const client = new MercadoPagoConfig({
   accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN,
 });
 
-// POST /api/pago — recibe el id de una orden ya creada y genera el link de pago.
 export async function POST(request) {
   const { orden_id } = await request.json();
 
-  // 1. Buscamos la orden y sus items en Supabase
   const { data: orden, error: errorOrden } = await supabase
     .from("orders")
     .select("*, order_items(*, products(*))")
@@ -18,13 +16,13 @@ export async function POST(request) {
     .single();
 
   if (errorOrden || !orden) {
+    console.error("ERROR AL BUSCAR ORDEN:", errorOrden);
     return NextResponse.json(
       { error: "Orden no encontrada" },
       { status: 404 }
     );
   }
 
-  // 2. Armamos los items en el formato que pide Mercado Pago
   const items = orden.order_items.map((item) => ({
     title: item.products.nombre,
     quantity: item.cantidad,
@@ -32,7 +30,6 @@ export async function POST(request) {
     currency_id: "ARS",
   }));
 
-  // 3. Creamos la preferencia de pago
   const preference = new Preference(client);
 
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
@@ -55,6 +52,7 @@ export async function POST(request) {
 
     return NextResponse.json({ init_point: resultado.init_point });
   } catch (error) {
+    console.error("ERROR MERCADO PAGO:", error);
     return NextResponse.json(
       { error: "No se pudo generar el pago" },
       { status: 500 }

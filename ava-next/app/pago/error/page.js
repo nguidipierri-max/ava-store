@@ -1,11 +1,11 @@
-export default function PagoExito() {
+export default function PagoError() {
     return (
       <main style={{ padding: "4rem 2rem", maxWidth: "600px", margin: "0 auto", textAlign: "center" }}>
         <h1 style={{ fontFamily: "Georgia, serif", color: "#2d2d2d", marginBottom: "1rem" }}>
-          ¡Pago aprobado!
+          El pago no se pudo procesar
         </h1>
         <p style={{ color: "#7a7a7a", marginBottom: "2rem" }}>
-          Tu compra fue procesada con éxito. Pronto recibirás tu pedido.
+          Hubo un problema con tu pago. Podés intentarlo de nuevo.
         </p>
         <a href="/catalogo" style={{
           padding: "0.9rem 2.5rem",
@@ -16,7 +16,7 @@ export default function PagoExito() {
           letterSpacing: "0.1em",
           fontSize: "0.85rem"
         }}>
-          SEGUIR COMPRANDO
+          VOLVER AL CATÁLOGO
         </a>
       </main>
     );
